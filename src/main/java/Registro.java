@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -248,4 +249,134 @@ public class Registro {
         System.out.println("Hay " +cantidadPersonasEdad + " " + mensaje);
     }
 
+    public static boolean agregarPersona(Object[][] matrizDatosPersonas, String nombre, String estadoCivil, int edad){
+        if (espacioDisponible(matrizDatosPersonas)){
+            for (int i = 0; i < matrizDatosPersonas.length; i++){
+                if (matrizDatosPersonas[i][0] == null){
+                    matrizDatosPersonas[i][0] = nombre;
+                    matrizDatosPersonas[i][1] = estadoCivil;
+                    matrizDatosPersonas[i][2] = edad;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int ingresarEdad(){
+        int edad;
+        while (true){
+            try {
+                System.out.print("Ingrese la edad: ");
+                edad = scanner().nextInt();
+                if (edad > 0){
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Ingresa una entrada valida. Intente de nuevo.");
+            }
+        }
+        return edad;
+    }
+
+    public static String ingresarNombre(){
+        String nombre = "";
+        while(true){
+            System.out.print("Ingrese el nombre: ");
+            nombre = scanner().nextLine();
+            if (!nombre.isEmpty()){
+                break;
+            } else {
+                System.out.println("Ingrese una entrada no vacia. Intente de nuevo. ");
+            }
+        }
+        return nombre;
+    }
+
+    public static String ingresarEstadoCivil(){
+        String estadoCivil = "";
+        int opcion;
+        while (true){
+            try {
+                mostrarEstadoCivil();
+                opcion = scanner().nextInt();
+                if (opcion == 1){
+                    estadoCivil = "Soltero/a";
+                    break;
+                } else if (opcion == 2){
+                    estadoCivil = "Casado/a";
+                    break;
+                } else {
+                    System.out.println("Ingrese una opción valida.");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("Ingrese una entrada valida. Intente de nuevo. ");
+            }
+        }
+        return estadoCivil;
+    }
+
+    public static void mostrarEstadoCivil(){
+        System.out.println("Estado civil: ");
+        System.out.println("1. Soltero/a");
+        System.out.println("2. Casado/a");
+        System.out.println("Seleccione una opción: ");
+    }
+
+    public static boolean espacioDisponible(Object [][] matrizDatosPersonas){
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] == null){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean personaUnica(Object[][] matrizDatosPersonas, String nombre){
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] != null && matrizDatosPersonas[i][0].equals(nombre)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void ejecutarAgregarPersona(Object[][] matrizDatosPersonas){
+        String nombre = ingresarNombre();
+        if (personaUnica(matrizDatosPersonas,nombre)){
+            boolean personaAgregada = agregarPersona(matrizDatosPersonas,nombre,ingresarEstadoCivil(),ingresarEdad());
+            if (personaAgregada){
+                System.out.println("Persona agregada correctamente.");
+            } else {
+                System.out.println("Persona no se pudo agregar, no hay cupo disponible.");
+            }
+        } else {
+            System.out.println("La persona ya se encuentra ingresada.");
+        }
+    }
+
+    public static int personasCasadas(Object[][] matrizDatosPersonas){
+        int personasCasadas = 0;
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] != null && matrizDatosPersonas[i][1].equals("Casado/a") ){
+                personasCasadas++;
+            }
+        }
+        return personasCasadas;
+    }
+
+    public static int personasSolteras(Object [][] matrizDatosPersonas){
+        int personasSolteras = 0;
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] != null && matrizDatosPersonas[i][1].equals("Soltero/a") ){
+                personasSolteras++;
+            }
+        }
+        return personasSolteras;
+    }
+
+    public static void cantidadPersonasEstadoCivil(Object[][] matrizDatosPersonas){
+        System.out.println("Hay " + personasCasadas(matrizDatosPersonas) + " personas casadas.");
+        System.out.println("Hay " + personasSolteras(matrizDatosPersonas) + " personas solteras");
+    }
 }
