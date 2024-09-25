@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Registro {
     public static void main(String[] args) {
+        menu();
 //        String [][] registro = new double[50][3];
 //        int a = -1;
 //
@@ -207,6 +208,52 @@ public class Registro {
                 6) Salir.
                 """);
 
+    }
+
+    public static void menu(){
+        Object[][] registro = matrizDatosPersonas();
+        while (true){
+            mostrarOpcionesMenu();
+            int opcion = leerOpcion();
+            ejecutarOpcion(registro,opcion);
+            if (opcion == 6){
+                break;
+            }
+        }
+        System.out.println("Cerrando programa.");
+        scanner().close();
+    }
+
+    public static void ejecutarOpcion(Object[][] registro, int opcion){
+        if (opcion == 1){
+            ejecutarAgregarPersona(registro);
+        } else if (opcion == 2){
+            imprimirCantidad("personas mayores de edad", cantidadPersonasMayorEdad(registro));
+        } else if (opcion == 3){
+            imprimirCantidad("personas menores de edad", cantidadPersonasMenorEdad(registro));
+        } else if (opcion == 4){
+            imprimirCantidad("personas de tercera edad", cantidadPersonasTerceraEdad(registro));
+        } else if (opcion == 5){
+            cantidadPersonasEstadoCivil(registro);
+        }
+    }
+
+    public static int leerOpcion(){
+        int opcion;
+        while(true){
+            try{
+                System.out.print("Seleccione una opción: ");
+                opcion = scanner().nextInt();
+                if (opcion >= 1 && opcion <= 6){
+                    break;
+                } else {
+                    System.out.println("Ingrese una opcion valida. Intente de nuevo.");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("Ingrese una entrada valida. Intente de nuevo. ");
+            }
+        }
+        return opcion;
     }
 
     public static int cantidadPersonasMayorEdad(Object[][] personas){
