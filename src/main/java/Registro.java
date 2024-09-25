@@ -208,4 +208,29 @@ public class Registro {
                 """);
 
     }
+
+    public static int cantidadPersonasMayorEdad(Object[][] personas){
+        int personasMayoresEdad = 0;
+        for (Object[] persona : personas) {
+            if (persona[0] != null) {
+                if ((int) persona[2] >= 18) {
+                    personasMayoresEdad++;
+                }
+            } else break;
+        }
+        return personasMayoresEdad;
+    }
+
+    public static int cantidadPersonasMenorEdad(Object[][] personas){
+        int personasMenorEdad = 0;
+        for (Object[] persona : personas) {
+            if (persona[0] != null) {
+                if ((int) persona[2] < 18) {
+                    personasMenorEdad++;
+                }
+            } else break;
+        }
+        return personasMenorEdad;
+    }
+
 }
