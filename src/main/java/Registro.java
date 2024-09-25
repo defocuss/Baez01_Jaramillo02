@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -245,7 +244,7 @@ public class Registro {
         return personasTerceraEdad;
     }
 
-    public static void imprimirCadidad(String mensaje, int cantidadPersonasEdad){
+    public static void imprimirCantidad(String mensaje, int cantidadPersonasEdad){
         System.out.println("Hay " +cantidadPersonasEdad + " " + mensaje);
     }
 
