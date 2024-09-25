@@ -209,6 +209,45 @@ public class Registro {
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static boolean agregarPersona(Object[][] matrizDatosPersonas, String nombre, String estadoCivil, int edad){
         if (espacioDisponible(matrizDatosPersonas)){
             for (int i = 0; i < matrizDatosPersonas.length; i++){
@@ -315,6 +354,28 @@ public class Registro {
         }
     }
 
+    public static int personasCasadas(Object[][] matrizDatosPersonas){
+        int personasCasadas = 0;
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] != null && matrizDatosPersonas[i][1].equals("Casado/a") ){
+                personasCasadas++;
+            }
+        }
+        return personasCasadas;
+    }
 
+    public static int personasSolteras(Object [][] matrizDatosPersonas){
+        int personasSolteras = 0;
+        for (int i = 0; i < matrizDatosPersonas.length; i++){
+            if (matrizDatosPersonas[i][0] != null && matrizDatosPersonas[i][1].equals("Soltero/a") ){
+                personasSolteras++;
+            }
+        }
+        return personasSolteras;
+    }
 
+    public static void cantidadPersonasEstadoCivil(Object[][] matrizDatosPersonas){
+        System.out.println("Hay " + personasCasadas(matrizDatosPersonas) + " personas casadas.");
+        System.out.println("Hay " + personasSolteras(matrizDatosPersonas) + " personas solteras");
+    }
 }
